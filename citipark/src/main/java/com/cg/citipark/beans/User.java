@@ -15,22 +15,44 @@ import javax.validation.constraints.NotBlank;
 @Entity
 @Table(name="users")
 public class User {
+	/*
+	 * User id 
+	 */
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long userId;
+	/*
+	 * First name of user
+	 */
 	@NotBlank(message = "First name required")
 	private String firstName;
+	/*
+	 * Last name of user
+	 */
 	@NotBlank(message = "Lastname required")
 	private String lastName;
+	/*
+	 * Email Id of user
+	 */
 	@NotBlank(message = "Email Id required")
 	@Column(unique = true)
 	private String email;
+	/*
+	 * Mobile number of user
+	 */
 	@NotBlank(message = "Mobile number required")
 	@Column(nullable = false, unique = true, length = 10)
 	private String mobile;
+	/*
+	 * Login Id of user
+	 */
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, optional = false)
 	@JoinColumn(name = "loginId", nullable = false)
 	private Login login;
+	
+	/*
+	 * Getters and Setters
+	 */
 	public Long getUserId() {
 		return userId;
 	}

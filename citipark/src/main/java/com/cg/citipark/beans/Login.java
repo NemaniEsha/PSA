@@ -9,16 +9,27 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Login {
-	
+	/*
+	 * Login Id of user
+	 */
 	@Id
 	@NotBlank(message = "Login Id required")
 	private String loginId;
+	/*
+	 * Password of user
+	 */
 	@NotBlank(message = "Password required")
 	private String password;
+	/*
+	 * Role of user
+	 */
 	private String role;
 	@OneToOne(fetch = FetchType.LAZY,mappedBy = "login")
 	@JsonIgnore
 	private User user;
+	/*
+	 * Getters and Setters
+	 */
 	public String getLoginId() {
 		return loginId;
 	}

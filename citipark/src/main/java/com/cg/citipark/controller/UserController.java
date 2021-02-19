@@ -1,5 +1,7 @@
 package com.cg.citipark.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,9 +26,11 @@ public class UserController {
 	
 	@Autowired
 	private MapValidationErrorService mapValidationErrorService;
-	
+	/*
+	 * Add user 
+	 */
 	@PostMapping("/api/adduser")
-	public ResponseEntity<?> addUser(@RequestBody User user,BindingResult result)
+	public ResponseEntity<?> addUser(@Valid @RequestBody User user,BindingResult result)
 	{
 		ResponseEntity<?> errorMap = mapValidationErrorService.mapValidationError(result);
 		if (errorMap != null) 
@@ -35,6 +39,9 @@ public class UserController {
 		return new ResponseEntity<User>(registerUser, HttpStatus.OK);
 	}
 	
+	/*
+	 * Get user details by Email
+	 */
 	@GetMapping("/user/getUserByEmail/{email}")
 	public  ResponseEntity<?> getUserByEmail(@PathVariable String email)
 	{
@@ -42,26 +49,35 @@ public class UserController {
 		return new ResponseEntity<User>(userService.getUserByEmail(email), HttpStatus.OK);
 	}
 	
+	/*
+	 * Get user details by Id
+	 */
 	@GetMapping("/user/getUserById/{userId}")
 	public ResponseEntity<?> getUserById(@PathVariable Long userId, BindingResult result) {
-		ResponseEntity<?> errorMap = mapValidationErrorService.mapValidationError(result);
-		if (errorMap != null) 
-			return errorMap;
 		User user = userService.readUserById(userId);
 		return new ResponseEntity<User>(user, HttpStatus.OK);
 	}
 	
+	/*
+	 * Delete user by Id
+	 */
 	@DeleteMapping("/user/delete/{id}")
 	public ResponseEntity<?> deleteUserById(@PathVariable long id)
 	{
 		return new ResponseEntity<User>(userService.deleteUserById(id),HttpStatus.OK);
 	}
 	
+	/*
+	 * Update user details
+	 */
 	@PutMapping("/user/update")
 	public User updateUser(@RequestBody User user) {
 		return userService.updateUser(user);
 	}
 	
+	/*
+	 * Login user
+	 */
 	@GetMapping("/user/login/{loginId},{password}")
 	public boolean Login(@PathVariable String loginId, @PathVariable String password) {
 		boolean b = userService.login(loginId, password);
