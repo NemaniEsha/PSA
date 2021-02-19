@@ -43,12 +43,6 @@ public class User {
 	@NotBlank(message = "Mobile number required")
 	@Column(nullable = false, unique = true, length = 10)
 	private String mobile;
-	/*
-	 * Login Id of user
-	 */
-	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, optional = false)
-	@JoinColumn(name = "loginId", nullable = false)
-	private Login login;
 	
 	/*
 	 * Getters and Setters
@@ -83,12 +77,19 @@ public class User {
 	public void setMobile(String mobile) {
 		this.mobile = mobile;
 	}
-	public Login getLogin() {
-		return login;
+	public User(Long userId, @NotBlank(message = "First name required") String firstName,
+			@NotBlank(message = "Lastname required") String lastName,
+			@NotBlank(message = "Email Id required") String email,
+			@NotBlank(message = "Mobile number required") String mobile) {
+		super();
+		this.userId = userId;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.mobile = mobile;
 	}
-	public void setLogin(Login login) {
-		this.login = login;
-	}
+	
+	
 
 	
 }

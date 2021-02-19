@@ -7,6 +7,6 @@ import com.cg.citipark.beans.User;
 
 
 public interface UserRepository extends JpaRepository<User,Long>{
-	@Query(value ="SELECT u FROM user u WHERE email=:email")
+	@Query(value ="SELECT u FROM User u WHERE email=:email")
 	User findByEmail(String email);
 }

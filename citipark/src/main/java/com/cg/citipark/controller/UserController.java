@@ -29,7 +29,7 @@ public class UserController {
 	/*
 	 * Add user 
 	 */
-	@PostMapping("/api/adduser")
+	@PostMapping("/user/adduser")
 	public ResponseEntity<?> addUser(@Valid @RequestBody User user,BindingResult result)
 	{
 		ResponseEntity<?> errorMap = mapValidationErrorService.mapValidationError(result);
@@ -53,18 +53,17 @@ public class UserController {
 	 * Get user details by Id
 	 */
 	@GetMapping("/user/getUserById/{userId}")
-	public ResponseEntity<?> getUserById(@PathVariable Long userId, BindingResult result) {
-		User user = userService.readUserById(userId);
-		return new ResponseEntity<User>(user, HttpStatus.OK);
+	public ResponseEntity<?> getUserById(@PathVariable Long userId) {
+		return new ResponseEntity<User>(userService.getUserById(userId), HttpStatus.OK);
 	}
 	
 	/*
 	 * Delete user by Id
 	 */
 	@DeleteMapping("/user/delete/{id}")
-	public ResponseEntity<?> deleteUserById(@PathVariable long id)
+	public void deleteUserById(@PathVariable Long userId)
 	{
-		return new ResponseEntity<User>(userService.deleteUserById(id),HttpStatus.OK);
+		userService.deleteUserById(userId);
 	}
 	
 	/*
@@ -73,20 +72,6 @@ public class UserController {
 	@PutMapping("/user/update")
 	public User updateUser(@RequestBody User user) {
 		return userService.updateUser(user);
-	}
-	
-	/*
-	 * Login user
-	 */
-	@GetMapping("/user/login/{loginId},{password}")
-	public boolean Login(@PathVariable String loginId, @PathVariable String password) {
-		boolean b = userService.login(loginId, password);
-		if(b)
-			System.out.println("Login successful");
-		else
-			System.out.println("Invalid Login Credentials");
-		return false;
-		
 	}
 
 }
