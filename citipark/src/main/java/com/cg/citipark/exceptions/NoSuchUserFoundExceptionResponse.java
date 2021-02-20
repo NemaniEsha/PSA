@@ -1,19 +1,19 @@
 package com.cg.citipark.exceptions;
 
 public class NoSuchUserFoundExceptionResponse {
-	private String userNotFound;
+	private Long userId;
 
-	public NoSuchUserFoundExceptionResponse(String userNotFound) {
+	public NoSuchUserFoundExceptionResponse(Long userId) {
 		super();
-		this.userNotFound = userNotFound;
+		this.userId = userId;
 	}
 
-	public String getUserNotFound() {
-		return userNotFound;
+	public Long getUserId() {
+		return userId;
 	}
 
-	public void setUserNotFound(String userNotFound) {
-		this.userNotFound = userNotFound;
+	public void setUserId(Long userId) {
+		this.userId = userId;
 	}
 
 	
